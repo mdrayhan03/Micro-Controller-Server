@@ -95,5 +95,5 @@ def latest_image_view():
     return send_file(BytesIO(latest_image), mimetype='image/jpeg')
 
 
-if __name__ == "__main__" :
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# if __name__ == "__main__" :
+#     app.run(host='0.0.0.0', port=5000, debug=True)
