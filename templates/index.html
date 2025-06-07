@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sensor Data</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            margin-top: 50px;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            background: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px #ccc;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        caption {
+            caption-side: bottom;
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Latest 10 Sensor Data Entries</h1>
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+                <th>Gas</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.temperature }}</td>
+                <td>{{ row.humidity }}</td>
+                <td>{{ row.gas }}</td>
+                <td>{{ row.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <caption>Showing latest 10 records in descending order.</caption>
+    </table>
+    {% else %}
+    <p style="text-align:center;">No sensor data available.</p>
+    {% endif %}
+    <a href="{{ url_for('home_image') }}">Image Page</a>
+</body>
+</html>

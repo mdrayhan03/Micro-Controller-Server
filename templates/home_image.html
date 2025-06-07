@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ESP32-CAM Latest Image</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      width: 60%;
+      height: 80vh;
+      border: 2px solid #333;
+    }
+    #countdown {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Latest Image from ESP32-CAM</h2>
+  <img id="latestImage" src="/latest-image" alt="Latest ESP32-CAM Image" />
+  <p>Image refreshes every 180 seconds.</p>
+  <div>Next update in <span id="countdown">180</span> seconds</div>
+  <a href="{{ url_for('index') }}">Data Page</a>
+
+  <script>
+    const img = document.getElementById('latestImage');
+    const countdownEl = document.getElementById('countdown');
+    let countdown = 180;
+
+    function refreshImage() {
+      const timestamp = new Date().getTime();
+      img.src = '/latest-image?ts=' + timestamp;
+      countdown = 180;
+      countdownEl.textContent = countdown;
+    }
+
+    // Update countdown every second
+    setInterval(() => {
+      countdown--;
+      if (countdown <= 0) {
+        refreshImage();
+      } else {
+        countdownEl.textContent = countdown;
+      }
+    }, 1000);
+
+    // Initial image load
+    refreshImage();
+  </script>
+</body>
+</html>
